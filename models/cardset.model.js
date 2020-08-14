@@ -33,6 +33,8 @@ const cardSetSchema = new Schema({
         trim: true
     },
     cards: [cardSchema]
+}, {
+    timestamps: true
 });
 
 const CardSet = mongoose.model('CardSet', cardSetSchema);
