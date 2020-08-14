@@ -4,6 +4,9 @@ const app =  express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+const cardSetsRouter = require('./routes/cardsets');
+const usersRouter = require('./routes/users')
+
 const port = 3000;
 
 app.use(cors());
@@ -18,6 +21,9 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log('Connected to database');
 });
+
+app.use('/cardsets', cardSetsRouter);
+app.use('/users', usersRouter);
 
 app.listen(port, () => {
     console.log(`Listening on port: ${port}`);
