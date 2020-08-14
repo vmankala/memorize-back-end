@@ -1,0 +1,24 @@
+{
+  "name": "memorize-back-end",
+  "version": "1.0.0",
+  "description": "Back end for Memorize, a flashcard study tool",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vmankala/memorize-back-end.git"
+  },
+  "author": "Vidip Mankala",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/vmankala/memorize-back-end/issues"
+  },
+  "homepage": "https://github.com/vmankala/memorize-back-end#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.29"
+  }
+}
