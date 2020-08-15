@@ -1,6 +1,7 @@
 {
   "name": "memorize-back-end",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "private": true,
   "description": "Back end for Memorize, a flashcard study tool",
   "main": "server.js",
   "scripts": {
@@ -11,7 +12,6 @@
     "url": "git+https://github.com/vmankala/memorize-back-end.git"
   },
   "author": "Vidip Mankala",
-  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/vmankala/memorize-back-end/issues"
   },
@@ -22,6 +22,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.29"
+    "mongoose": "^5.9.29",
+    "validator": "^13.1.1"
   }
 }
