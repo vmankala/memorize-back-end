@@ -1,26 +1,31 @@
 const router = require('express').Router();
 let User = require('../models/user.model')
 
+const validateRegister = require('../validation/register');
+const validateLogin = require('../validation/login');
+
 // Register user
 router.post('/register', (req, res) => {
+    const {valid, errors} = validateRegister(req.body);
+
+    if (!valid) {
+        return res.status(400).json(errors);
+    }
+
     User.findOne({
         username: req.body.username
     })
     .then(user => {
         if (!user) {
-            if (req.body.password.length >= 6) {
-                let newUser = new User({
-                    username: req.body.username
-                });
-                newUser.password = newUser.hashPass(req.body.password);
-                newUser.save()
-                    .then(() => res.status(201).json('User created'))
-                    .catch(err => res.status(400).json('Err: ' + err));
-            } else {
-                res.status(400).json('Err: Password too short')
-            }
+            let newUser = new User({
+                username: req.body.username
+            });
+            newUser.password = newUser.hashPass(req.body.password);
+            newUser.save()
+                .then(() => res.status(201).json('User created'))
+                .catch(err => res.status(400).json('Err: ' + err));
         } else {
-            res.status(409).json('Err: Username taken');
+            res.status(409).json('Username is already taken');
         }
     })
     .catch(err => res.status(400).json('Err: ' + err));
@@ -28,6 +33,12 @@ router.post('/register', (req, res) => {
 
 // Login user
 router.post('/login', (req, res) => {
+    const {valid, errors} = validateLogin(req.body);
+
+    if (!valid) {
+        return res.status(400).json(errors);
+    }
+
     User.findOne({
         username: req.body.username
     })
@@ -37,10 +48,10 @@ router.post('/login', (req, res) => {
                 let token = user.generateToken();
                 res.status(200).json(token);
             } else {
-                res.status(401).json('Err: Password does not match');
+                res.status(401).json('Password or username does not match');
             }
         } else {
-            res.status(404).json('Err: Username does not exist');
+            res.status(404).json('Account does not exist');
         }
     })
     .catch(err => res.status(400).json('Err: ' + err));
