@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const cardSetsRouter = require('./routes/cardsets');
-const usersRouter = require('./routes/users')
+const usersRouter = require('./routes/users');
 
 const port = 3000;
 
