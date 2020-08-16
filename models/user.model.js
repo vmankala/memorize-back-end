@@ -37,7 +37,7 @@ userSchema.methods.generateToken = function() {
         _id: this._id,
         username: this.username
     }
-    return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: 1200});
+    return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "20m"});
 }
 
 const User = mongoose.model('User', userSchema);
