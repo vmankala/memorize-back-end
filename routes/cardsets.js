@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
         .then(cardsets => {
             res.status(200).json(cardsets);
         })
-        .catch(err => res.status(400).json('Err: ' + err));
+        .catch(err => res.status(400).json({error: err}));
     } else {
         res.status(400).json({token: "Invalid token"});
     }
@@ -65,7 +65,7 @@ router.post('/new', (req, res) => {
         });
         newSet.save()
             .then(() => res.status(201).json(newSet))
-            .catch(err => res.status(400).json('Err: ' + err));
+            .catch(err => res.status(400).json({error: err}));
     } else {
         res.status(400).json({token: "Invalid token"});
     }
@@ -99,7 +99,7 @@ router.post('/:setId', (req, res) => {
                 res.status(404).json({id: "Invalid cardset id"});
             } 
         })
-        .catch(err => res.status(400).json('Err: ' + err));
+        .catch(err => res.status(400).json({error: err}));
     } else {
         res.status(400).json({token: "Invalid token"});
     }
@@ -138,12 +138,12 @@ router.post('/:setId/edit', (req, res) => {
     
                 cardset.save()
                     .then(() => res.status(201).json(cardset))
-                    .catch(err => res.status(400).json('Err: ' + err));
+                    .catch(err => res.status(400).json({error: err}));
             } else {
                 res.status(404).json({id: "Invalid cardset id"});
             }
         })
-        .catch(err => res.status(400).json('Err: ' + err));
+        .catch(err => res.status(400).json({error: err}));
     } else {
         res.status(400).json({token: "Invalid token"});
     }
@@ -177,7 +177,7 @@ router.post('/:setId/delete', (req, res) => {
                 res.status(404).json({id: "Invalid cardset id"});
             } 
         })
-        .catch(err => res.status(400).json('Err: ' + err));
+        .catch(err => res.status(400).json({error: err}));
     } else {
         res.status(400).json({token: "Invalid token"});
     }
@@ -215,12 +215,12 @@ router.post('/:setId/new', (req, res) => {
                 const card = cardset.cards[cardset.cards.length - 1];
                 cardset.save()
                     .then(() => res.status(200).json(card))
-                    .catch(err => res.status(400).json('Err: ' + err));
+                    .catch(err => res.status(400).json({error: err}));
             } else {
                 res.status(404).json({id: "Invalid cardset id"});
             }
         })
-        .catch(err => res.status(400).json('Err: ' + err));
+        .catch(err => res.status(400).json({error: err}));
     } else {
         res.status(400).json({token: "Invalid token"});
     }
@@ -259,7 +259,7 @@ router.post('/:setId/:cardId', (req, res) => {
                 res.status(404).json({id: "Invalid cardset id"});
             }
         })
-        .catch(err => res.status(400).json('Err: ' + err));
+        .catch(err => res.status(400).json({error: err}));
     } else {
         res.status(400).json({token: "Invalid token"});
     }
@@ -299,7 +299,7 @@ router.post('/:setId/:cardId/edit', (req, res) => {
                     card.answer = req.body.answer;
                     cardset.save()
                         .then(() => res.status(200).json(card))
-                        .catch(err => res.status(400).json('Err: ' + err));
+                        .catch(err => res.status(400).json({error: err}));
                 } else {
                     res.status(404).json({id: "Invalid card id"});
                 }
@@ -307,7 +307,7 @@ router.post('/:setId/:cardId/edit', (req, res) => {
                 res.status(404).json({id: "Invalid cardset id"});
             }
         })
-        .catch(err => res.status(400).json('Err: ' + err));
+        .catch(err => res.status(400).json({error: err}));
     } else {
         res.status(400).json({token: "Invalid token"});
     }
@@ -341,7 +341,7 @@ router.post('/:setId/:cardId/delete', (req, res) => {
                     card.remove();
                     cardset.save()
                         .then(() => res.status(200).json(card))
-                        .catch(err => res.status(400).json('Err: ' + err));
+                        .catch(err => res.status(400).json({error: err}));
                 } else {
                     res.status(404).json({id: "Invalid card id"});
                 }
@@ -349,7 +349,7 @@ router.post('/:setId/:cardId/delete', (req, res) => {
                 res.status(404).json({id: "Invalid cardset id"});
             }
         })
-        .catch(err => res.status(400).json('Err: ' + err));
+        .catch(err => res.status(400).json({error: err}));
     } else {
         res.status(400).json({token: "Invalid token"});
     }

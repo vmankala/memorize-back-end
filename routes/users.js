@@ -22,13 +22,13 @@ router.post('/register', (req, res) => {
             });
             newUser.password = newUser.hashPass(req.body.password);
             newUser.save()
-                .then(() => res.status(201).json('User created'))
-                .catch(err => res.status(400).json('Err: ' + err));
+                .then((user) => res.status(201).json(user))
+                .catch(err => res.status(400).json({error: err}));
         } else {
             res.status(409).json({username: 'Username is already taken'});
         }
     })
-    .catch(err => res.status(400).json('Err: ' + err));
+    .catch(err => res.status(400).json({error: err}));
 });
 
 // Login user
@@ -46,7 +46,7 @@ router.post('/login', (req, res) => {
         if (user) {
             if (user.validatePass(req.body.password)) {
                 let token = user.generateToken();
-                res.status(200).json(token);
+                res.status(200).json({token: 'Bearer ' + token});
             } else {
                 res.status(401).json({username: 'Password or username does not match'});
             }
@@ -54,7 +54,7 @@ router.post('/login', (req, res) => {
             res.status(404).json({username: 'Password or username does not match'});
         }
     })
-    .catch(err => res.status(400).json('Err: ' + err));
+    .catch(err => res.status(400).json({error: err}));
 });
 
 module.exports = router;
