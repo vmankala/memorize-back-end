@@ -7,12 +7,12 @@ const mongoose = require('mongoose');
 const cardSetsRouter = require('./routes/cardsets');
 const usersRouter = require('./routes/users');
 
-const port = 3000;
+const port = process.env.PORT;
 
 app.use(cors());
 app.use(express.json())
 
-mongoose.connect('mongodb://127.0.0.1:27017/memorize', {
+mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useCreateIndex: true
 });

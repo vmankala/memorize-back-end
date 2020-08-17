@@ -9,12 +9,20 @@ const parseToken = require('../helpers/parsetoken');
 
 // Get all of a user's card sets
 router.post('/', (req, res) => {
-    const {validToken, tokenError} = validateToken(req.body);
+    const auth =  req.headers.authorization;
+    let token;
+    if (auth) {
+        token = req.headers.authorization.split(' ')[1];
+    } else {
+        return res.status(400).json({token: "Token required"});
+    }
+
+    const {validToken, tokenError} = validateToken(token);
     if (!validToken) {
         return res.status(400).json(tokenError);
     }
 
-    const payload = parseToken(req.body.token);
+    const payload = parseToken(token);
     if (payload) {
         CardSet.find({
             username: payload.username
@@ -30,7 +38,15 @@ router.post('/', (req, res) => {
 
 // Add a new card set
 router.post('/new', (req, res) => {
-    const {validToken, tokenError} = validateToken(req.body);
+    const auth =  req.headers.authorization;
+    let token;
+    if (auth) {
+        token = req.headers.authorization.split(' ')[1];
+    } else {
+        return res.status(400).json({token: "Token required"});
+    }
+
+    const {validToken, tokenError} = validateToken(token);
     if (!validToken) {
         return res.status(400).json(tokenError);
     }
@@ -40,7 +56,7 @@ router.post('/new', (req, res) => {
         return res.status(400).json(setError);
     }
 
-    const payload = parseToken(req.body.token);
+    const payload = parseToken(token);
     if (payload) {
         let newSet = new CardSet({
             username: payload.username,
@@ -57,12 +73,20 @@ router.post('/new', (req, res) => {
 
 // Get a single card set
 router.post('/:setId', (req, res) => {
-    const {validToken, tokenError} = validateToken(req.body);
+    const auth =  req.headers.authorization;
+    let token;
+    if (auth) {
+        token = req.headers.authorization.split(' ')[1];
+    } else {
+        return res.status(400).json({token: "Token required"});
+    }
+
+    const {validToken, tokenError} = validateToken(token);
     if (!validToken) {
         return res.status(400).json(tokenError);
     }
 
-    const payload = parseToken(req.body.token);
+    const payload = parseToken(token);
     if (payload) {
         CardSet.findOne({
             _id: req.params.setId,
@@ -83,7 +107,15 @@ router.post('/:setId', (req, res) => {
 
 // Edit a card set (title & description only)
 router.post('/:setId/edit', (req, res) => {
-    const {validToken, tokenError} = validateToken(req.body);
+    const auth =  req.headers.authorization;
+    let token;
+    if (auth) {
+        token = req.headers.authorization.split(' ')[1];
+    } else {
+        return res.status(400).json({token: "Token required"});
+    }
+
+    const {validToken, tokenError} = validateToken(token);
     if (!validToken) {
         return res.status(400).json(tokenError);
     }
@@ -93,7 +125,7 @@ router.post('/:setId/edit', (req, res) => {
         return res.status(400).json(setError);
     }
 
-    const payload = parseToken(req.body.token);
+    const payload = parseToken(token);
     if (payload) {
         CardSet.findOne({
             _id: req.params.setId,
@@ -119,12 +151,20 @@ router.post('/:setId/edit', (req, res) => {
 
 // Delete a card set
 router.post('/:setId/delete', (req, res) => {
-    const {validToken, tokenError} = validateToken(req.body);
+    const auth =  req.headers.authorization;
+    let token;
+    if (auth) {
+        token = req.headers.authorization.split(' ')[1];
+    } else {
+        return res.status(400).json({token: "Token required"});
+    }
+
+    const {validToken, tokenError} = validateToken(token);
     if (!validToken) {
         return res.status(400).json(tokenError);
     }
 
-    const payload = parseToken(req.body.token);
+    const payload = parseToken(token);
     if (payload) {
         CardSet.findOneAndDelete({
             _id: req.params.setId,
@@ -145,7 +185,15 @@ router.post('/:setId/delete', (req, res) => {
 
 // Add a new card to a cardset
 router.post('/:setId/new', (req, res) => {
-    const {validToken, tokenError} = validateToken(req.body);
+    const auth =  req.headers.authorization;
+    let token;
+    if (auth) {
+        token = req.headers.authorization.split(' ')[1];
+    } else {
+        return res.status(400).json({token: "Token required"});
+    }
+
+    const {validToken, tokenError} = validateToken(token);
     if (!validToken) {
         return res.status(400).json(tokenError);
     }
@@ -155,7 +203,7 @@ router.post('/:setId/new', (req, res) => {
         return res.status(400).json(cardErrors);
     }
 
-    const payload = parseToken(req.body.token);
+    const payload = parseToken(token);
     if (payload) {
         CardSet.findOne({
             _id: req.params.setId,
@@ -180,12 +228,20 @@ router.post('/:setId/new', (req, res) => {
 
 // Get a single card from a set
 router.post('/:setId/:cardId', (req, res) => {
-    const {validToken, tokenError} = validateToken(req.body);
+    const auth =  req.headers.authorization;
+    let token;
+    if (auth) {
+        token = req.headers.authorization.split(' ')[1];
+    } else {
+        return res.status(400).json({token: "Token required"});
+    }
+
+    const {validToken, tokenError} = validateToken(token);
     if (!validToken) {
         return res.status(400).json(tokenError);
     }
 
-    const payload = parseToken(req.body.token);
+    const payload = parseToken(token);
     if (payload) {
         CardSet.findOne({
             _id: req.params.setId,
@@ -211,7 +267,15 @@ router.post('/:setId/:cardId', (req, res) => {
 
 // Edit a single card from a set
 router.post('/:setId/:cardId/edit', (req, res) => {
-    const {validToken, tokenError} = validateToken(req.body);
+    const auth =  req.headers.authorization;
+    let token;
+    if (auth) {
+        token = req.headers.authorization.split(' ')[1];
+    } else {
+        return res.status(400).json({token: "Token required"});
+    }
+
+    const {validToken, tokenError} = validateToken(token);
     if (!validToken) {
         return res.status(400).json(tokenError);
     }
@@ -221,7 +285,7 @@ router.post('/:setId/:cardId/edit', (req, res) => {
         return res.status(400).json(cardErrors);
     }
 
-    const payload = parseToken(req.body.token);
+    const payload = parseToken(token);
     if (payload) {
         CardSet.findOne({
             _id: req.params.setId,
@@ -251,12 +315,20 @@ router.post('/:setId/:cardId/edit', (req, res) => {
 
 // Delete a single card from a cardset
 router.post('/:setId/:cardId/delete', (req, res) => {
-    const {validToken, tokenError} = validateToken(req.body);
+    const auth =  req.headers.authorization;
+    let token;
+    if (auth) {
+        token = req.headers.authorization.split(' ')[1];
+    } else {
+        return res.status(400).json({token: "Token required"});
+    }
+
+    const {validToken, tokenError} = validateToken(token);
     if (!validToken) {
         return res.status(400).json(tokenError);
     }
 
-    const payload = parseToken(req.body.token);
+    const payload = parseToken(token);
     if (payload) {
         CardSet.findOne({
             _id: req.params.setId,
