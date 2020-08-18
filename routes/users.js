@@ -48,10 +48,10 @@ router.post('/login', (req, res) => {
                 let token = user.generateToken();
                 res.status(200).json({token: 'Bearer ' + token});
             } else {
-                res.status(401).json({username: 'Password or username does not match'});
+                res.status(401).json({username: 'Password or username does not match', password: 'Password or username does not match'});
             }
         } else {
-            res.status(404).json({username: 'Password or username does not match'});
+            res.status(404).json({username: 'Password or username does not match', password: 'Password or username does not match'});
         }
     })
     .catch(err => res.status(400).json({error: err}));
