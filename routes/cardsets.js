@@ -51,9 +51,9 @@ router.post('/new', (req, res) => {
         return res.status(400).json(tokenError);
     }
 
-    const {validSet, setError} = validateCardSet(req.body);
+    const {validSet, setErrors} = validateCardSet(req.body);
     if (!validSet) {
-        return res.status(400).json(setError);
+        return res.status(400).json(setErrors);
     }
 
     const payload = parseToken(token);
@@ -120,9 +120,9 @@ router.post('/:setId/edit', (req, res) => {
         return res.status(400).json(tokenError);
     }
 
-    let {validSet, setError} = validateCardSet(req.body);
+    const {validSet, setErrors} = validateCardSet(req.body);
     if (!validSet) {
-        return res.status(400).json(setError);
+        return res.status(400).json(setErrors);
     }
 
     const payload = parseToken(token);
